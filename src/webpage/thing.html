@@ -1,0 +1,78 @@
+
+<!DOCTYPE html><html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Stockfish API</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body><div id="board">n <div class="white"
+            id="a8"><img src="pieces/r.svg" width="64" height="64"></div>
+        <div class="black" id="a7"><img src="pieces/n.svg" width="64" height="64"></div>
+        <div class="white" id="a6"><img src="pieces/b.svg" width="64" height="64"></div>
+        <div class="black" id="a5"><img src="pieces/q.svg" width="64" height="64"></div>
+        <div class="white" id="a4"><img src="pieces/k.svg" width="64" height="64"></div>
+        <div class="black" id="a3"><img src="pieces/b.svg" width="64" height="64"></div>
+        <div class="white" id="a2"><img src="pieces/n.svg" width="64" height="64"></div>
+        <div class="black" id="a1"><img src="pieces/r.svg" width="64" height="64"></div>
+        <div class="black" id="b8"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="white" id="b7"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="black" id="b6"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="white" id="b5"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="black" id="b4"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="white" id="b3"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="black" id="b2"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="white" id="b1"><img src="pieces/p.svg" width="64" height="64"></div>
+        <div class="white" id="c8"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="c7"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="c6"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="c5"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="c4"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="c3"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="c2"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="c1"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="d8"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="d7"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="d6"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="d5"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="d4"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="d3"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="d2"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="d1"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="e8"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="e7"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="e6"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="e5"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="e4"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="e3"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="e2"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="e1"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="f8"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="f7"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="f6"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="f5"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="f4"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="f3"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="black" id="f2"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="f1"><img src="pieces/ .svg" width="64" height="64"></div>
+        <div class="white" id="g8"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="black" id="g7"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="white" id="g6"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="black" id="g5"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="white" id="g4"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="black" id="g3"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="white" id="g2"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="black" id="g1"><img src="pieces/P.svg" width="64" height="64"></div>
+        <div class="black" id="h8"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="white" id="h7"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="black" id="h6"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="white" id="h5"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="black" id="h4"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="white" id="h3"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="black" id="h2"><img src="pieces/.svg" width="64" height="64"></div>
+        <div class="white" id="h1"><img src="pieces/.svg" width="64" height="64"></div>
+    </div></body>
+
+</html>

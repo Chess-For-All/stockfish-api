@@ -1,0 +1,28 @@
+#board {
+    padding: 10px;
+    display: grid;
+    grid: repeat(8, 64px) / auto-flow 64px;
+}
+
+#board > div.white {
+    width: 62px;
+    height: 62px;
+    background-color: #ffce9e;
+}
+
+#board > div.black {
+    width: 62px;
+    height: 62px;
+    background-color: #d18b47;
+}
+
+.FEN {
+    padding: 5px;
+    background-color: #444;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+.FEN > p {
+    color: #ccc;
+}
