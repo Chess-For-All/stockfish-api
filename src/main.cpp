@@ -40,7 +40,7 @@ void convertFEN(std::string FEN, char board[8][8]) {
                             // std::cout << i << std::endl;
                             board[y][x+i] = ' ';
                         }
-                        x += i;
+                        x += i-1;
                         index++;
                         break;
                     case '/':
