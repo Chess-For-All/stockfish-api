@@ -34,3 +34,4 @@
 build
 CMakeUserPresets.json
 .vscode
+**/*move

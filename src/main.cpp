@@ -1,6 +1,6 @@
-#include <restinio/all.hpp>
 #include <iostream>
 #include <string>
+#include <string.h>
 
 void start(char* engine_exec, char* input_exec, char* output_exec) {
     char cmd[1000];

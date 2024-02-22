@@ -1,9 +1,0 @@
-[requires]
-restinio/0.7.2
-
-[tool_requires]
-cmake/3.22.6
-
-[generators]
-CMakeDeps
-CMakeToolchain

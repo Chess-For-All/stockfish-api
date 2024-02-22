@@ -11,10 +11,24 @@
             if (array_key_exists("bestmove", $_POST) && $_POST["bestmove"] != "") {
                 echo "<p>Best move: ".htmlspecialchars($_POST["bestmove"])."</p>";
                 file_put_contents("bestmove", $_POST["bestmove"]);
+                if (array_key_exists("timestamp", $_POST) && $_POST["timestamp"] != "") {
+                    echo "<p>Timestamp: ".htmlspecialchars($_POST["timestamp"])."</p>";
+                    file_put_contents("bestmove", file_get_contents("bestmove")."\n".$_POST["timestamp"]);
+                } else {
+                    echo "<p>Timestamp: ".(new DateTime())->getTimeStamp()."</p>";
+                    file_put_contents("bestmove", file_get_contents("bestmove")."\n".(new DateTime())->getTimeStamp());
+                }
             }
             if (array_key_exists("nextmove", $_POST) && $_POST["nextmove"] != "") {
                 echo "<p>Next move: ".htmlspecialchars($_POST["nextmove"])."</p>";
                 file_put_contents("nextmove", $_POST["nextmove"]);
+                if (array_key_exists("timestamp", $_POST) && $_POST["timestamp"] != "") {
+                    echo "<p>Timestamp: ".htmlspecialchars($_POST["timestamp"])."</p>";
+                    file_put_contents("nextmove", file_get_contents("nextmove")."\n".$_POST["timestamp"]);
+                } else {
+                    echo "<p>Timestamp: ".(new DateTime())->getTimeStamp()."</p>";
+                    file_put_contents("nextmove", file_get_contents("nextmove")."\n".(new DateTime())->getTimeStamp());
+                }
             }
             
         }
