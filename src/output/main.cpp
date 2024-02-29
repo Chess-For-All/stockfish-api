@@ -4,9 +4,9 @@
 using namespace std;
 int main(int argc, char** argv) {
     while (true) {
-        string line;
-
-        cin >> line;
+        char* cline;
+        cin.getline(cline, 256);
+        string line(cline);
 
         if (line.find("bestmove") != string::npos) {
             cout << line << endl;
