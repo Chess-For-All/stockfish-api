@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
         char cline[256];
         cin.getline(cline, 256);
         string line(cline);
+        
         while (line.empty()) {
             cin.getline(cline, 256);
             string temp(cline);
