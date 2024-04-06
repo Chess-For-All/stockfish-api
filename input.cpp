@@ -6,10 +6,16 @@
 
 using namespace std;
 
-void next(vector<string>& moves, string& last_next, string& next_move, bool& changed) {
-    cpr::Response r = cpr::Get(cpr::Url{"http://localhost:8080/blackmove"});
+void next(vector<string>& moves, 
+          string& last_next, 
+          string& next_move, 
+          bool& changed) {
+    cpr::Response r = cpr::Get(cpr::Url{url});
     next_move = r.text.substr(0,4);
-    if (next_move != last_next && next_move.find('<') == string::npos && !changed) {
+    if (next_move != last_next && 
+        next_move.find('<') == string::npos && 
+        !changed) {
+        
         changed = true;
         moves.push_back(next_move);
         last_next = next_move;

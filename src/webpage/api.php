@@ -3,16 +3,16 @@
 
 <head>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
+    <script src="/libs/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- chess -->
-    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+    <link rel="stylesheet" href="/libs/chessboard-1.0.0.min.css"
         integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    <script src="/libs/jquery-3.5.1.min.js"
         integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
         crossorigin="anonymous"></script>
 
-    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+    <script src="/libs/chessboard-1.0.0.min.js"
         integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
         crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -40,11 +40,23 @@
             echo "<p>Black move: " . htmlspecialchars($_POST["blackmove"]) . "</p>";
             file_put_contents("blackmove", $_POST["blackmove"]);
         }
+        if (array_key_exists("fen", $_POST) && $_POST["fen"] != "") {
+            file_put_contents("fen", $_POST["fen"]);
+        }
 
     }
     echo "<p id=\"status\">Best move: " . (htmlspecialchars(file_exists("bestmove") ? file_get_contents("bestmove") : "")) . "<br>White Move: " . htmlspecialchars(file_exists("whitemove") ? file_get_contents("whitemove") : "") . "<br>Black Move: " . htmlspecialchars(file_exists("blackmove") ? file_get_contents("blackmove") : "") . "</p>"
         ?>
     <script>
+        var config = {
+            draggable: true,
+            dropOffBoard: 'snapback',
+            position: 'start',
+            onChange: postMove
+        }
+        var board = Chessboard('myBoard', config);
+        var currentfen = "";
+        var oldfen = "";
         function postMove(start, end) {
             var startpos;
             var endpos;
@@ -67,22 +79,24 @@
             }
             console.log(startpos + endpos);
             if (start[startpos][0] == 'w') {
-                console.log("white")
                 const data = {
-                    whitemove: startpos + endpos
+                    whitemove: startpos + endpos,
+                    fen: Chessboard.objToFen(end)
                 }
-                const formBody = Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&');
-                fetch("http://" + window.location.host + "/api.php", {
+                const formBody = Object.keys(data).map(
+                    key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&');
+                console.log(formBody);
+                fetch("http://" +
+                     window.location.host + 
+                     "/api.php", {
                     method: 'POST',
                     body: formBody,
                     headers: { "Content-type": "application/x-www-form-urlencoded" }
                 })
-                    .then(response => console.log(response.json()))
-                    .catch(err => console.log(err));
             } else if (start[startpos][0] == 'b') {
-                console.log("black")
                 const data = {
-                    blackmove: startpos + endpos
+                    blackmove: startpos + endpos,
+                    fen: Chessboard.objToFen(end)
                 }
                 const formBody = Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&');
                 fetch("http://" + window.location.host + "/api.php", {
@@ -90,50 +104,63 @@
                     body: formBody,
                     headers: { "Content-type": "application/x-www-form-urlencoded" }
                 })
-                    .then(response => console.log(response.status()))
-                    .catch(err => console.log(err));
             }
-            
-
+            syncFEN();
         }
 
-        var config = {
-            draggable: true,
-            dropOffBoard: 'snapback',
-            position: 'start',
-            onChange: postMove
+        function syncFEN() {
+            fetch("http://" + window.location.host + "/fen").then(response => {
+                return response.text();
+            }).then(fen => {
+                currentfen = fen;
+                if (currentfen != oldfen) {
+                    board.destroy()
+                    config["position"] = currentfen;
+                    board = Chessboard("myBoard", config);
+                }
+            })
         }
-        var board = Chessboard('myBoard', config);
+        setInterval(async () => {
+            syncFEN();
+        }, 2000);
         setInterval(async () => {
             const status = document.getElementById("status");
-                var Best;
-                var White;
-                var Black;
-                fetch("http://" + window.location.host + "/bestmove").then(response => {
-                        console.log(response.statusText);
+            var Best;
+            var White;
+            var Black;
+            fetch("http://" + window.location.host + "/bestmove").then(response => {
+                // console.log(response.statusText);
+                return response.text();
+            })
+                .then(data => {
+                    // console.log(data);
+                    Best = data
+                    fetch("http://" + window.location.host + "/whitemove").then(response => {
+                        // console.log(response.statusText);
                         return response.text();
                     })
-                    .then(data => {console.log(data); Best = data
-                        fetch("http://" + window.location.host + "/whitemove").then(response => {
-                                console.log(response.statusText);
+                        .then(data => {
+                            // console.log(data); 
+                            White = data
+                            fetch("http://" + window.location.host + "/blackmove").then(response => {
+                                // console.log(response.statusText);
                                 return response.text();
                             })
-                            .then(data => {console.log(data); White = data
-                                fetch("http://" + window.location.host + "/blackmove").then(response => {
-                                        console.log(response.statusText);
-                                        return response.text();
-                                    })
-                                    .then(data => {console.log(data); Black = data
-                                        status.innerHTML = "\
+                                .then(data => {
+                                    // console.log(data); 
+                                    Black = data
+                                    status.innerHTML = "\
                                         Best Move: " + Best + "<br>\
                                         White Move: " + White + "<br>\
                                         Black Move: " + Black
-                                    });
-                            });
-                            
-                    });
-                }, 100);
-        </script>
+                                });
+                        });
+
+                });
+        }, 100);
+    </script>
+    <button onclick="syncFEN()">sync FEN</button>
+    <br>
     <form method="post">
         Best move:
         <input type="text" name="bestmove">

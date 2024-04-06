@@ -23,6 +23,10 @@ int main(int argc, char** argv) {
             string move = line.substr(9,5);
             cout << "\e[32m[stockfish]: \e[39m" << line << ':' << move << endl;
             cpr::Response r = cpr::Post(cpr::Url(url + "/api.php"), cpr::Payload({{"bestmove", move}}));
+        } else if (line.find("Fen: ") != string::npos) {
+            string fen = line.substr(5);
+            cout << "\e[32m[stockfish]: \e[39m" << line << ':' << fen << endl;
+            cpr::Response r = cpr::Post(cpr::Url(url + "/api.php"), cpr::Payload({{"fen", fen}}));
         } else {
             cout << "\e[31m[stockfish]: \e[39m \"" << line << '"' << endl;
         }

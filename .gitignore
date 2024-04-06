@@ -35,3 +35,4 @@ build
 CMakeUserPresets.json
 .vscode
 **/*move
+**/fen

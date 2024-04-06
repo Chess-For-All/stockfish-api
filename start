@@ -1,0 +1,10 @@
+#!/bin/bash
+cd ./src/webpage
+echo "     " > ./bestmove
+echo "     " > ./blackmove
+echo "     " > ./whitemove
+echo "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" > ./fen
+nohup php -S 0.0.0.0:8080&
+cd ../..
+
+./build/input | stockfish | ./build/output
