@@ -21,6 +21,10 @@ int main(int argc, char** argv) {
 
         if (line.find("bestmove") != string::npos) {
             string move = line.substr(9,5);
+
+            if (move.at(4) == ':')
+                move.at(4) = ' ';
+                
             cout << "\e[32m[stockfish]: \e[39m" << line << ':' << move << endl;
             cpr::Response r = cpr::Post(cpr::Url(url + "/api.php"), cpr::Payload({{"bestmove", move}}));
         } else if (line.find("Fen: ") != string::npos) {
