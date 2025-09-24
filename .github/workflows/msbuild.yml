@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Make files
-      uses: Chess-For-All/stockfish-api/CMakeLists.txt
+      uses: Chess-For-All/stockfish-api/CMakeLists.txt@ref
 
     - name: Build
-      uses: CMakeFiles/CMakeConfigureLog.yaml
+      uses: CMakeFiles/CMakeConfigureLog.yaml@ref
